@@ -28,12 +28,16 @@ export default class CarService implements IService<ICar> {
   }
 
   public async update(_id: string, obj: ICar) : Promise<ICar | null> {
+    if (_id.length < 24) throw new Error(ErrorTypes.InvalidMongoId);
+
     const parsed = carZodSchema.safeParse(obj);
 
     if (!parsed.success) {
       throw parsed.error;
     }
     const updated = await this._car.update(_id, obj);
+
+    if (!updated) throw new Error(ErrorTypes.ObjectNotFound);
     
     return updated as ICar;
   }
