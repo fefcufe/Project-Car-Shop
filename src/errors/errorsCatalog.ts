@@ -8,19 +8,15 @@ type ErrorResponseObject = {
   httpStatus: number
 };
   
-// aqui o tipo do catálogo
-export type ErrorCatalog = {
-  [key in ErrorTypes]: ErrorResponseObject
-  
-};
-  
+export type ErrorCatalog = Record<ErrorTypes, ErrorResponseObject>;
+
 export const errorCatalog: ErrorCatalog = {
   EntityNotFound: {
     message: 'Entity not found',
-    httpStatus: 404,
+    httpStatus: 400,
   },
   InvalidMongoId: {
-    message: 'Bad request',
+    message: 'Id must have 24 hexadecimal characters',
     httpStatus: 400,
   },
 };

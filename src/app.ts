@@ -1,6 +1,6 @@
 import express from 'express';
-import carRoute from './Routes/carRoutes';
 import 'express-async-errors';
+import carRoute from './Routes/carRoutes';
 import errorHandler from './middlewares/errors';
 
 const app = express();
