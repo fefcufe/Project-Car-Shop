@@ -10,7 +10,7 @@ const carService = new CarService(carModel);
 const carController = new CarController(carService);
 
 router.post('/', (req: Request, res: Response) => carController.create(req, res));
-router.get('/', (_req: Request, res: Response) => carController.read(res));
+router.get('/', (_req: Request, res: Response) => carController.read(_req, res));
 router.get('/:id', (req: Request, res: Response) => carController.readOne(req, res));
 router.put('/:id', (req: Request, res: Response) => carController.update(req, res));
 router.delete('/:id', (req: Request, res: Response) => carController.delete(req, res));

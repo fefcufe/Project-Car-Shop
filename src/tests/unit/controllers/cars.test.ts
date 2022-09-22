@@ -16,7 +16,7 @@ describe('Car Controller', () => {
 
   const res = {} as Response;
 
-  before(() => {
+  before( async () => {
     sinon.stub(carService, 'create').resolves(completeCarMock);
     sinon.stub(carService, 'readOne').resolves(completeCarMock);
     sinon.stub(carService, 'read').resolves([completeCarMock]);
@@ -38,7 +38,7 @@ describe('Car Controller', () => {
       await carController.create(req, res);
 
       expect((res.status as sinon.SinonStub).calledWith(201)).to.be.true;
-      expect((res.json as sinon.SinonStub).calledWith(completeCarMock)).to.be.true;
+      expect((res.json as sinon.SinonStub).calledWith(completeCarMock)).to.be.true; // passando
     });
   });
 
@@ -49,17 +49,17 @@ describe('Car Controller', () => {
       await carController.readOne(req, res);
 
       expect((res.status as sinon.SinonStub).calledWith(200)).to.be.true;
-      expect((res.json as sinon.SinonStub).calledWith(completeCarMock)).to.be.true;
+      expect((res.json as sinon.SinonStub).calledWith(completeCarMock)).to.be.true; // passando
     });
   });
 
   describe('Read Car', () => {
     it('Success', async () => {
 
-      await carController.readOne(req, res);
+      await carController.read(req, res);
 
       expect((res.status as sinon.SinonStub).calledWith(200)).to.be.true;
-      expect((res.json as sinon.SinonStub).calledWith([completeCarMock])).to.be.true;
+      expect((res.json as sinon.SinonStub).calledWith([completeCarMock])).to.be.true; 
     });
   });
 
@@ -71,7 +71,7 @@ describe('Car Controller', () => {
       await carController.update(req, res);
 
       expect((res.status as sinon.SinonStub).calledWith(200)).to.be.true;
-      expect((res.json as sinon.SinonStub).calledWith([completeCarMock])).to.be.true;
+      expect((res.json as sinon.SinonStub).calledWith(completeCarMock)).to.be.true;
     });
   });
 
@@ -79,8 +79,11 @@ describe('Car Controller', () => {
     it('Success', async () => {
 
       req.params = { id: completeCarMock._id };
+      
+      await carController.delete(req, res);
 
       expect((res.status as sinon.SinonStub).calledWith(204)).to.be.true;
+      expect((res.end as sinon.SinonStub).calledWith()).to.be.true;
     });
   });
   
